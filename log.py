@@ -28,6 +28,8 @@ async def on_comment(event: CommentEvent):
         bolsa_de_user_id.append(event.user.user_id)
         logging.info(f"user_data: {event.user.user_id} | {event.user.nickname} | {event.user.unique_id} | {event.user.sec_uid} | {event.user.info.following} | {event.user.info.followers} | {event.user.info.follow_role}")
     logging.info(f"{event.user.user_id} -> {event.comment}")
+    logging.info(f"viewer_count: {client.viewer_count}")
+
 
 # Define handling an event via "callback"
 client.add_listener("comment", on_comment)
