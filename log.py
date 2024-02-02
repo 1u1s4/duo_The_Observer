@@ -4,14 +4,15 @@ import os
 import logging
 import time
 
-# Set up logging
-time_stamp = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
-log_file = f"logs/{time_stamp}.log"
-logging.basicConfig(filename=log_file, level=logging.DEBUG)
-
 # Instantiate the client with the user's username
 user = os.environ.get("TIKTOK_USER")
 client: TikTokLiveClient = TikTokLiveClient(unique_id=user)
+
+# Set up logging
+time_stamp = time.strftime("%d-%m-%Y_%H-%M", time.localtime())
+log_file = f"logs/{user}_{time_stamp}.log"
+# solo guardar los mensajes que se definan en el nivel de logging
+logging.basicConfig(filename=log_file, level=logging.INFO, format="%(asctime)s - %(message)s")
 
 # Define how you want to handle specific events via decorator
 @client.on("connect")
