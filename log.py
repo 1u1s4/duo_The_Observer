@@ -1,8 +1,9 @@
+import os
+import time
+import logging
+
 from TikTokLive import TikTokLiveClient
 from TikTokLive.types.events import CommentEvent, ConnectEvent
-import os
-import logging
-import time
 
 # Instantiate the client with the user's username
 user = os.environ.get("TIKTOK_USER")
