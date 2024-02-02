@@ -1,6 +1,7 @@
 import os
 import time
 import logging
+import asyncio
 
 from TikTokLive import TikTokLiveClient
 from TikTokLive.types.events import CommentEvent, ConnectEvent
@@ -28,13 +29,17 @@ async def on_comment(event: CommentEvent):
         bolsa_de_user_id.append(event.user.user_id)
         logging.info(f"user_data: {event.user.user_id} | {event.user.nickname} | {event.user.unique_id} | {event.user.sec_uid} | {event.user.info.following} | {event.user.info.followers} | {event.user.info.follow_role}")
     logging.info(f"{event.user.user_id} -> {event.comment}")
-    logging.info(f"viewer_count: {client.viewer_count}")
 
+# Función para loguear el conteo de espectadores cada 5 segundos
+async def log_viewer_count():
+    while True:  # Bucle infinito
+        logging.info(f"viewer_count: {client.viewer_count}")
+        await asyncio.sleep(5)  # Espera 5 segundos antes de la próxima ejecución
 
 # Define handling an event via "callback"
 client.add_listener("comment", on_comment)
 
 if __name__ == '__main__':
-    # Run the client and block the main thread
-    # await client.start() to run non-blocking
-    client.run()
+    loop = asyncio.get_event_loop()
+    loop.create_task(log_viewer_count())  # Programa log_viewer_count para que se ejecute concurrentemente
+    loop.run_until_complete(client.start())  # Inicia el cliente de forma asíncrona
