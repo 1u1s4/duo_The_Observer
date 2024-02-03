@@ -17,7 +17,7 @@ logging.basicConfig(filename=log_file, level=logging.INFO, format="%(asctime)s -
 
 bolsa_de_user_id = []
 
-# Define how you want to handle specific events via decorator
+# Define ho w you want to handle specific events via decorator
 @client.on("connect")
 async def on_connect(_: ConnectEvent):
     logging.info(f"Connected to Room ID: {client.room_id}")
