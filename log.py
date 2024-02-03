@@ -11,7 +11,7 @@ client: TikTokLiveClient = TikTokLiveClient(unique_id=user)
 
 # Set up logging
 time_stamp = time.strftime("%d-%m-%Y_%H-%M", time.localtime())
-log_file = f"logs/{user}_{time_stamp}.log"
+log_file = f"/Volumes/UNTITLED/logs/{user}_{time_stamp}.log"
 # solo guardar los mensajes que se definan en el nivel de logging
 logging.basicConfig(filename=log_file, level=logging.INFO, format="%(asctime)s - %(message)s")
 
