@@ -5,6 +5,7 @@ from TikTokLive.types.events import CommentEvent, ConnectEvent
 def on_connect(unique_id: str) -> bool:
     client: TikTokLiveClient = TikTokLiveClient(unique_id=unique_id)
     respuesta = client.room_id
+    print(respuesta)
 
     return bool(respuesta)
 
