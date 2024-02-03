@@ -19,7 +19,7 @@ async def on_connect(_: ConnectEvent):
     """
 
     client.download(
-        path=f"/Volumes/UNTITLED/lives/{user}_{time_stamp}.avi",  # File path to save the download to
+        path=f"/media/kali/UNTITLED/lives/{user}_{time_stamp}.avi",  # File path to save the download to
         duration=None,  # Download FOREVER. Set to any integer above 1 to download for X seconds
         quality=None  # Select video quality. In this case, Ultra-High Definition
     )
