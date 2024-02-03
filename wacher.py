@@ -15,3 +15,4 @@ def on_connect(unique_id: str) -> bool:
 
 if __name__ == '__main__':
     print(on_connect("klg.gt"))
+    print(on_connect("edgar_toledo_g"))
