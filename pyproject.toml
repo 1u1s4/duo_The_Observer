@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "duo-the-observer"
+version = "0.1.0"
+description = "Observer CLI for TikTok live sessions using TikTokLive"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "duo_The_Observer contributors" }]
+dependencies = [
+  "TikTokLive>=6.6.5",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3",
+  "pytest-asyncio>=0.24",
+  "ruff>=0.6",
+]
+legacy = [
+  "ffmpeg-python>=0.2.0",
+  "openai-whisper>=20240930",
+]
+
+[project.scripts]
+observer = "duo_observer.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = [
+  "live: executes real live checks against TikTok",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]

@@ -1,26 +1,20 @@
-import whisper
-import ffmpeg
+from __future__ import annotations
 
-#primero convertir de avi a mp3
-ffmpeg.input('audio.avi').output('audio.mp3').run()
+from pathlib import Path
+import sys
+import warnings
 
-model = whisper.load_model("base")
+ROOT = Path(__file__).resolve().parent
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
 
-# load audio and pad/trim it to fit 30 seconds
-audio = whisper.load_audio("audio.mp3")
-audio = whisper.pad_or_trim(audio)
+from scripts.legacy.speech_to_text import main
 
-# make log-Mel spectrogram and move to the same device as the model
-mel = whisper.log_mel_spectrogram(audio).to(model.device)
 
-# detect the spoken language
-_, probs = model.detect_language(mel)
-print(f"Detected language: {max(probs, key=probs.get)}")
-
-# decode the audio
-options = whisper.DecodingOptions()
-result = whisper.decode(model, mel, options)
-
-# save the recognized text to a file
-with open("recognized.txt", "w") as file:
-    file.write(result.text)
+if __name__ == "__main__":
+    warnings.warn(
+        "Speech-To-Text.py esta deprecado. Usa scripts/legacy/speech_to_text.py.",
+        DeprecationWarning,
+    )
+    raise SystemExit(main())

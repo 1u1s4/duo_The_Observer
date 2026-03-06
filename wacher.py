@@ -1,18 +1,20 @@
-from TikTokLive import TikTokLiveClient
-from TikTokLive.types.events import CommentEvent, ConnectEvent
+from __future__ import annotations
+
+from pathlib import Path
+import sys
+import warnings
+
+ROOT = Path(__file__).resolve().parent
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from scripts.legacy.wacher import main
 
 
-def on_connect(unique_id: str) -> bool:
-    try:
-        client: TikTokLiveClient = TikTokLiveClient(unique_id=unique_id)
-        client.run()
-        respuesta = client.room_id
-
-        return bool(respuesta)
-    except Exception as e:
-        print(e)
-        return False
-
-if __name__ == '__main__':
-    #print(on_connect("klg.gt"))
-    print(on_connect("edgar_toledo_g"))
+if __name__ == "__main__":
+    warnings.warn(
+        "wacher.py esta deprecado. Usa `observer live-check`.",
+        DeprecationWarning,
+    )
+    raise SystemExit(main())

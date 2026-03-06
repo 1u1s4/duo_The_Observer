@@ -1,40 +1,20 @@
-import os
-import time
-import asyncio
+from __future__ import annotations
 
-from TikTokLive import TikTokLiveClient
-from TikTokLive.types.events import ConnectEvent
+from pathlib import Path
+import sys
+import warnings
+
+ROOT = Path(__file__).resolve().parent
+SRC = ROOT / "src"
+if str(SRC) not in sys.path:
+    sys.path.insert(0, str(SRC))
+
+from scripts.legacy.download import main
 
 
-user = os.environ.get("TIKTOK_USER")
-client = TikTokLiveClient(user)
-
-time_stamp = time.strftime("%d-%m-%Y_%H-%M", time.localtime())
-
-@client.on("connect")
-async def on_connect(_: ConnectEvent):
-    """
-    Download the livestream video from TikTok directly!
-
-    """
-
-    client.download(
-        path=f"/media/kali/UNTITLED/lives/{user}_{time_stamp}.avi",  # File path to save the download to
-        duration=None,  # Download FOREVER. Set to any integer above 1 to download for X seconds
-        quality=None  # Select video quality. In this case, Ultra-High Definition
+if __name__ == "__main__":
+    warnings.warn(
+        "download.py esta deprecado. Usa `observer legacy-download`.",
+        DeprecationWarning,
     )
-
-    # Stop downloading after 10 seconds.
-    await asyncio.sleep(2)
-    client.stop_download()
-
-
-if __name__ == '__main__':
-    """
-    Note: "ffmpeg" MUST be installed on your machine to run this program
-    
-    """
-
-    # Run the client and block the main thread
-    # await client.start() to run non-blocking
-    client.run()
+    raise SystemExit(main())
