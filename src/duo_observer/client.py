@@ -57,12 +57,18 @@ def load_event_types() -> dict[str, type[Any]]:
         ) from exc
 
     required_names = ("ConnectEvent", "CommentEvent", "DisconnectEvent")
+    optional_names = ("RoomUserSeqEvent",)
     event_types: dict[str, type[Any]] = {}
     for name in required_names:
         event_type = getattr(events_module, name, None)
         if event_type is None:
             raise TikTokLiveApiError(f"No se encontro {name} en TikTokLive.events")
         event_types[name] = event_type
+
+    for name in optional_names:
+        event_type = getattr(events_module, name, None)
+        if event_type is not None:
+            event_types[name] = event_type
 
     return event_types
 

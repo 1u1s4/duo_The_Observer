@@ -4,7 +4,7 @@ CLI para observar TikTok Live con `TikTokLive`, con flujo principal alineado a l
 
 ## Estado del proyecto
 - Flujo principal soportado: `watch`, `log`, `live-check`.
-- Flujo legacy aislado: `legacy-download`, `speech_to_text`.
+- Flujo legacy aislado: `legacy-download`, `capture-audio`, `speech_to_text`.
 - Compatibilidad de scripts antiguos mantenida mediante wrappers deprecados.
 
 ## Requisitos
@@ -54,6 +54,11 @@ observer log --user rtvenoticias --output ./output/logs/rtve.jsonl --format json
 observer legacy-download --user rtvenoticias --path ./output/legacy/rtve.avi --duration 60
 ```
 
+### Capturar audio MP3 del live (legacy)
+```bash
+observer capture-audio --user rtvenoticias --audio-path ./output/audio/rtve.mp3 --duration 60
+```
+
 ## Formatos de salida
 `observer log` soporta:
 - `jsonl`: una linea JSON por evento (recomendado para pipelines).
@@ -81,4 +86,4 @@ ruff check .
 - `TikTokLive no esta instalado`: ejecuta `pip install -e .`.
 - `ffmpeg no esta instalado`: instala `ffmpeg` y valida con `ffmpeg -version`.
 - Smoke test live falla por red: verifica DNS/salida a `www.tiktok.com`.
-- `legacy-download` falla por API: la funcionalidad depende de metodos no garantizados por versiones recientes.
+- `legacy-download` o `capture-audio` falla por API: la funcionalidad depende de metodos no garantizados por versiones recientes.

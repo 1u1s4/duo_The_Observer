@@ -8,7 +8,8 @@
 - `src/duo_observer/client.py`: integracion con `TikTokLiveClient`, carga de eventos y normalizacion de `unique_id`.
 - `src/duo_observer/handlers.py`: handlers de eventos (`ConnectEvent`, `CommentEvent`, `DisconnectEvent`) y salidas estructuradas (`jsonl`/texto).
 - `src/duo_observer/services/live_probe.py`: verificacion `is_live()` y utilidades de sonda.
-- `src/duo_observer/cli.py`: comandos `watch`, `log`, `live-check`, `legacy-download`.
+- `src/duo_observer/services/media.py`: utilidades legacy de extraccion de audio con `ffmpeg`.
+- `src/duo_observer/cli.py`: comandos `watch`, `log`, `live-check`, `legacy-download`, `capture-audio`.
 - `scripts/legacy/*`: scripts heredados compatibles pero no recomendados.
 
 ## Flujo principal
@@ -19,7 +20,7 @@
 5. Persistir comentarios opcionalmente en formato `jsonl` o texto estructurado.
 
 ## Flujo legacy
-- `legacy-download` y `speech_to_text` quedan fuera del camino principal.
+- `legacy-download`, `capture-audio` y `speech_to_text` quedan fuera del camino principal.
 - Requieren prerequisitos extras (`ffmpeg`, `whisper`) y no tienen garantias de compatibilidad con futuras versiones de `TikTokLive`.
 
 ## Manejo de errores
