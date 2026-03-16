@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "duo-the-observer"
-version = "0.1.0"
+version = "0.2.0"
 description = "Observer CLI for TikTok live sessions using TikTokLive"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -19,11 +19,6 @@ dev = [
   "pytest-asyncio>=0.24",
   "ruff>=0.6",
 ]
-legacy = [
-  "ffmpeg-python>=0.2.0",
-  "openai-whisper>=20240930",
-]
-
 [project.scripts]
 observer = "duo_observer.cli:main"
 
@@ -43,7 +38,7 @@ markers = [
 [tool.ruff]
 line-length = 100
 target-version = "py310"
-src = ["src", "tests", "scripts"]
+src = ["src", "tests"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]
